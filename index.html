@@ -90,10 +90,9 @@ img{display:block;max-width:100%;}
 }
 
 .hero-logo{
-  width:clamp(160px,22vw,220px);
+  width:clamp(168px,23vw,232px);
   margin-bottom:44px;
-  /* white bg logo on ivory — smooth blend */
-  mix-blend-mode:multiply;
+  /* transparent-bg logo sits cleanly on ivory — no white box */
 }
 
 .hero-eyebrow{
@@ -264,18 +263,43 @@ h2{
 }
 .si-body span{font-size:14.5px;color:var(--smoke);}
 
-.badge{
-  display:inline-block;
+.cta-wrap{margin-top:4px;}
+.cta-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
   background:var(--brown);
-  color:var(--gold-lt);
+  color:#F6F0E3;
   font-family:var(--serif);
-  font-size:14.5px;
-  padding:11px 26px;
-  border-radius:999px;
+  font-size:18px;
+  font-weight:600;
+  padding:20px 42px;
+  border-radius:14px;
   text-decoration:none;
-  transition:opacity .2s;
+  border:1px solid rgba(184,153,104,.45);
+  box-shadow:0 16px 34px rgba(58,42,33,.20);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
 }
-.badge:hover{opacity:.82;}
+.cta-btn:hover,.cta-btn:focus-visible{
+  transform:translateY(-3px);
+  background:#30221A;
+  border-color:var(--gold);
+  box-shadow:0 24px 48px rgba(58,42,33,.30);
+  outline:none;
+}
+.cta-arrow{
+  color:var(--gold-lt);
+  font-size:21px;
+  line-height:1;
+  transition:transform .25s ease;
+}
+.cta-btn:hover .cta-arrow{transform:translateX(7px);}
+.cta-hint{
+  margin-top:15px;
+  font-size:13.5px;
+  color:#8A7C6B;
+  letter-spacing:.01em;
+}
 
 /* ── ROADMAP ─────────────────────────────── */
 .road-grid{
@@ -369,9 +393,8 @@ footer::before{
 }
 
 .footer-brand img{
-  width:140px;
-  mix-blend-mode:luminosity;
-  opacity:.72;
+  width:150px;
+  opacity:.88;
   margin-bottom:18px;
 }
 .footer-brand p{
@@ -455,6 +478,7 @@ footer::before{
   .hero-sub{max-width:100%;}
   .keyline{padding-left:18px;}
   .footer-copy{flex-direction:column;}
+  .cta-btn{width:100%;justify-content:center;padding:18px 28px;font-size:17px;}
 }
 </style>
 </head>
@@ -465,7 +489,7 @@ footer::before{
   <div class="hero-left">
     <img
       class="hero-logo"
-      src="assets/images/seolmajung-logo-01-korean-dining-gangnam.png"
+      src="assets/images/seolmajung-logo-transparent.png"
       alt="설마중 로고"
     >
     <div class="hero-eyebrow">Yangjae · Korean Private Dining</div>
@@ -540,7 +564,13 @@ footer::before{
             </div>
           </li>
         </ul>
-        <a class="badge" href="roadmap/index.html">상세 로드맵 보기 →</a>
+        <div class="cta-wrap">
+          <a class="cta-btn" href="roadmap/index.html">
+            로드맵 한눈에 보기
+            <span class="cta-arrow">→</span>
+          </a>
+          <div class="cta-hint">4주 실행 계획 · 필요 품목 · 촬영 리스트까지 한 페이지에</div>
+        </div>
       </div>
     </div>
   </div>
@@ -582,7 +612,8 @@ footer::before{
 <section class="reveal">
   <div class="wrap">
     <div class="eyebrow">이 작업이 만드는 것</div>
-    <h2>매출 보장이 아니라<br>안심하고 예약하는 흐름</h2>
+    <h2>안심하고 예약하는 흐름이<br>다시 찾는 이유가 됩니다</h2>
+    <p class="keyline">매출을 앞세우지 않습니다. 고객이 망설임 없이 예약하고, 만족하고, 다시 찾는 흐름이 쌓일 때 — 매출은 그 결과로 따라옵니다.</p>
     <div class="promise-grid">
       <div class="promise-card">
         <h3>검색 첫인상</h3>
@@ -606,7 +637,7 @@ footer::before{
     <div class="footer-inner">
       <div class="footer-brand">
         <img
-          src="assets/images/seolmajung-logo-01-korean-dining-gangnam.png"
+          src="assets/images/seolmajung-logo-cream.png"
           alt="설마중 로고"
         >
         <p>
