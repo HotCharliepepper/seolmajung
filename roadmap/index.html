@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중요한 자리가 선명해지는 매장 — 설마중 오프라인 경험 개선 로드맵</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --ivory:#F5F0E7; --paper:#FCFAF5; --brown:#3B2A21; --charcoal:#2B2926;
+    --ink:#403831; --gold:#B89968; --gold-soft:#DECFAE; --ember:#A2362B;
+    --line:#E5DCC9;
+    --serif:'Noto Serif KR','Nanum Myeongjo',serif;
+    --sans:'Pretendard Variable',Pretendard,'Noto Sans KR',-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation:none!important;transition:none!important;}}
+  body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.82;letter-spacing:-0.01em;word-break:keep-all;overflow-wrap:break-word;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* warm placeholder bg — degrades gracefully before real images load */
+  .ph-bg{background:linear-gradient(135deg,#EFE7D6,#E2D4BB);color:#9A8C79;font-family:var(--serif);font-size:13px;text-align:center;}
+
+  /* hero */
+  .hero{background:var(--brown);color:#F2EBDD;padding:90px 0 80px;position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .hero-eyebrow{font-size:13px;letter-spacing:0.22em;color:var(--gold-soft);margin-bottom:26px;font-weight:500;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(31px,5.6vw,48px);line-height:1.34;color:#F7F1E4;margin-bottom:16px;}
+  .hero-sub{font-family:var(--serif);font-size:clamp(16px,2.5vw,20px);color:var(--gold-soft);font-weight:400;margin-bottom:30px;}
+  .hero-lede{max-width:600px;font-size:16px;color:#D9CFBE;line-height:1.9;}
+
+  /* sections */
+  section{padding:74px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .eyebrow{font-size:12.5px;letter-spacing:0.2em;color:var(--gold);font-weight:600;margin-bottom:13px;}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(23px,3.6vw,30px);color:var(--brown);line-height:1.42;margin-bottom:22px;}
+  .keyline{font-family:var(--serif);font-size:clamp(16px,2.3vw,19px);color:var(--charcoal);line-height:1.7;border-left:2px solid var(--gold);padding:5px 0 5px 20px;margin:0 0 28px;max-width:660px;}
+  p.body{max-width:660px;font-size:15.5px;}
+
+  /* hero visual */
+  .visual-section{padding:52px 0 0;}
+  .feature-image{margin:0 auto;max-width:960px;}
+  .feature-image img{width:100%;display:block;border-radius:18px;object-fit:cover;min-height:300px;box-shadow:0 24px 60px rgba(58,46,37,0.18);}
+  .feature-image figcaption{margin-top:16px;text-align:center;font-family:var(--serif);font-size:15px;color:#7A6E5F;}
+
+  /* 두괄식 plan */
+  .plan-sec{background:var(--paper);}
+  .plan{margin-top:4px;}
+  .plan-row{display:flex;gap:20px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);}
+  .plan-row:last-of-type{border-bottom:none;}
+  .plan-no{flex:0 0 32px;font-family:var(--serif);font-weight:600;color:var(--gold);font-size:19px;line-height:1.35;}
+  .plan-text strong{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--brown);display:block;margin-bottom:2px;}
+  .plan-text span{font-size:14px;color:#6F6457;line-height:1.6;}
+
+  /* image strip */
+  .image-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;}
+  .image-strip figure{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .image-strip img{width:100%;height:190px;object-fit:cover;display:block;}
+  .image-strip figcaption{padding:13px 16px;font-size:14px;color:var(--brown);font-weight:600;text-align:center;}
+
+  /* before-after */
+  .before-after{display:grid;grid-template-columns:1.15fr 1fr;gap:30px;align-items:start;margin-top:6px;}
+  .ba-visual{display:flex;flex-direction:column;gap:14px;}
+  .ba-main{width:100%;border-radius:16px;object-fit:cover;min-height:240px;box-shadow:0 18px 40px rgba(58,46,37,0.14);display:block;}
+  .ba-before-mini{display:flex;align-items:center;gap:12px;}
+  .ba-before-mini img{width:92px;height:66px;object-fit:cover;border-radius:8px;display:block;}
+  .ba-before-mini span{font-size:12.5px;color:#9A8C79;}
+  .ba-list{display:grid;gap:14px;}
+  .ba-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px 22px;}
+  .ba-card.is-after{border-color:var(--gold-soft);}
+  .ba-tag{font-size:11.5px;letter-spacing:0.14em;font-weight:600;margin-bottom:9px;}
+  .ba-card.is-before .ba-tag{color:#A99C88;}
+  .ba-card.is-after .ba-tag{color:var(--gold);}
+  .ba-card h3{font-family:var(--serif);font-size:16.5px;color:var(--brown);margin-bottom:9px;}
+  .ba-card ul{list-style:none;}
+  .ba-card li{font-size:14px;color:#665D52;margin-bottom:6px;padding-left:16px;position:relative;line-height:1.6;}
+  .ba-card li:last-child{margin-bottom:0;}
+  .ba-card li::before{content:"";position:absolute;left:2px;top:0.62em;width:6px;height:1.5px;}
+  .ba-card.is-before li::before{background:#C9BCA6;}
+  .ba-card.is-after li::before{background:var(--gold);}
+  .ground{background:#F1EADB;border-left:2px solid var(--ember);border-radius:6px;padding:13px 18px;font-size:14.5px;color:var(--brown);line-height:1.7;max-width:660px;margin:0 0 26px;}
+
+  /* journey */
+  .journey-grid{display:grid;grid-template-columns:1fr 0.82fr;gap:36px;align-items:start;margin-top:6px;}
+  .journey-img img{width:100%;border-radius:14px;object-fit:cover;min-height:280px;box-shadow:0 18px 40px rgba(58,46,37,0.12);display:block;}
+  .journey-img figcaption{margin-top:12px;font-size:13.5px;color:#7A6E5F;text-align:center;}
+  .jflow{border-left:1px solid var(--gold-soft);}
+  .jflow-item{position:relative;padding:0 0 24px 30px;}
+  .jflow-item:last-child{padding-bottom:0;}
+  .jflow-item::before{content:"";position:absolute;left:-5px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--ivory);border:2px solid var(--gold);}
+  .jflow-stage{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--brown);}
+  .jflow-desc{font-size:14.5px;color:#5C5246;line-height:1.6;}
+
+  /* touchpoints */
+  .touch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:6px;}
+  .touch-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px;}
+  .card-img{width:100%;height:170px;object-fit:cover;border-radius:10px;margin-bottom:18px;display:block;}
+  .touch-card h3{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--brown);margin-bottom:8px;}
+  .touch-card p{font-size:14px;line-height:1.7;color:#5C5246;}
+  .touch-card.text-only{background:#F1EADB;display:flex;flex-direction:column;justify-content:center;}
+
+  /* circulation */
+  .circ-img{max-width:760px;margin:0 auto 4px;}
+  .circ-img img{width:100%;border-radius:16px;object-fit:cover;min-height:240px;box-shadow:0 18px 40px rgba(58,46,37,0.12);display:block;}
+  .circ-img figcaption{margin-top:14px;text-align:center;font-family:var(--serif);font-size:15px;color:#7A6E5F;}
+  .circulation-flow{margin-top:34px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .circulation-flow div{background:var(--paper);border:1px solid var(--gold-soft);border-radius:999px;padding:12px 22px;font-size:14px;color:var(--brown);font-weight:600;}
+  .circulation-flow span{color:var(--gold);font-size:16px;}
+  .circ-channels{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .circ-channels .ch{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 22px;text-align:center;min-width:148px;}
+  .circ-channels .ch strong{display:block;font-family:var(--serif);color:var(--brown);font-size:15px;margin-bottom:3px;}
+  .circ-channels .ch small{font-size:12.5px;color:#8A7C6B;}
+
+  /* roadmap cards */
+  .road-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:6px;}
+  .road-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px;}
+  .rc-when{font-family:var(--serif);font-weight:600;color:var(--gold);font-size:16px;margin-bottom:8px;}
+  .road-card h3{font-family:var(--serif);font-size:16.5px;font-weight:600;color:var(--brown);margin-bottom:6px;}
+  .road-card p{font-size:14px;line-height:1.65;color:#5C5246;}
+  .road-after{margin-top:18px;font-size:13.5px;color:#8A7C6B;text-align:center;}
+  .road-after strong{color:var(--brown);font-weight:600;}
+
+  /* cards (품목) */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:6px;}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 22px;}
+  .card h3{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--brown);margin-bottom:5px;}
+  .card .card-note{font-size:13px;color:#9A8C79;margin-bottom:14px;}
+  .card ul{list-style:none;}
+  .card li{font-size:14px;line-height:1.6;padding:7px 0;border-bottom:1px solid #F0E9DA;}
+  .card li:last-child{border-bottom:none;}
+  .card li small{display:block;color:#9A8C79;font-size:12.5px;margin-top:1px;}
+
+  /* photo table */
+  .table-scroll{overflow-x:auto;margin-top:6px;-webkit-overflow-scrolling:touch;}
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);font-size:15px;min-width:600px;}
+  th{font-family:var(--serif);font-weight:600;font-size:14.5px;color:var(--brown);background:#F1EADB;text-align:left;padding:13px 18px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  td{padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.7;}
+  tr:last-child td{border-bottom:none;}
+  td.cell-area{font-weight:600;color:var(--brown);white-space:nowrap;}
+  td.cell-now{color:#7A6E5F;}
+  .actions{margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px 26px;max-width:720px;}
+  .actions h4{font-size:13px;letter-spacing:0.16em;color:var(--gold);font-weight:600;margin-bottom:13px;}
+  .actions ul{list-style:none;}
+  .actions li{position:relative;padding-left:22px;margin-bottom:8px;font-size:14px;line-height:1.6;}
+  .actions li:last-child{margin-bottom:0;}
+  .actions li::before{content:"";position:absolute;left:2px;top:0.68em;width:8px;height:1.5px;background:var(--gold);}
+
+  /* next */
+  .next{background:var(--brown);color:#EDE4D3;border-radius:14px;padding:42px 42px;margin-top:6px;}
+  .next h3{font-family:var(--serif);font-size:19px;font-weight:600;color:#F7F1E4;margin-bottom:22px;}
+  .next ol{list-style:none;counter-reset:na;}
+  .next li{counter-increment:na;position:relative;padding:13px 0 13px 52px;border-bottom:1px solid rgba(222,207,174,0.18);font-size:15px;line-height:1.7;}
+  .next li:last-child{border-bottom:none;}
+  .next li::before{content:counter(na,decimal-leading-zero);position:absolute;left:0;top:13px;font-family:var(--serif);color:var(--gold-soft);font-size:15px;letter-spacing:0.06em;}
+  .next li strong{color:#F7F1E4;font-weight:600;}
+
+  footer{padding:42px 0 56px;border-top:1px solid var(--line);font-size:13px;color:#9A8C79;line-height:1.9;}
+  footer .f-brand{font-family:var(--serif);color:var(--brown);font-size:14.5px;font-weight:600;margin-bottom:4px;}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.on{opacity:1;transform:none;}
+
+  @media (max-width:860px){
+    .cards{grid-template-columns:1fr;}
+    .before-after{grid-template-columns:1fr;}
+    .journey-grid{grid-template-columns:1fr;}
+    .touch-grid{grid-template-columns:1fr;}
+    .road-cards{grid-template-columns:1fr;}
+  }
+  @media (max-width:760px){
+    .image-strip{grid-template-columns:1fr;}
+    .image-strip img,.card-img{height:220px;}
+    .circulation-flow{flex-direction:column;}
+    .circulation-flow span{transform:rotate(90deg);}
+  }
+  @media (max-width:640px){
+    body{font-size:16px;}
+    section{padding:56px 0;}
+    .hero{padding:66px 0 58px;}
+    .visual-section{padding:40px 0 0;}
+    .keyline{padding-left:18px;}
+    .next{padding:32px 24px;}
+    .next li{padding-left:44px;}
+    .plan-no{flex:0 0 28px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. HERO -->
+<nav style="background:#3B2A21;padding:14px 28px;display:flex;align-items:center;gap:14px;">
+  <a href="../" style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#DECFAE;text-decoration:none;letter-spacing:.06em;">← 설마중</a>
+  <span style="color:rgba(222,207,174,.35);font-size:12px;">오프라인 경험 개선 로드맵</span>
+</nav>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">설마중 · 양재 한식 룸 다이닝</div>
+    <h1>중요한 자리가 선명해지는 매장</h1>
+    <div class="hero-sub">설마중 오프라인 경험 개선 로드맵</div>
+    <p class="hero-lede">새 장비를 들이는 일이 아닙니다. 고객이 매장 안에서 느낀 안심이 리뷰, 재방문, 소개로 돌아오게 만드는 정리입니다.</p>
+  </div>
+</header>
+
+<!-- 2. HERO VISUAL -->
+<section class="visual-section reveal">
+  <div class="wrap">
+    <figure class="feature-image">
+      <img class="ph-bg" src="../assets/images/seolmajung-place-card-counter.jpg" alt="설마중 자리카드가 카운터 아크릴 트레이에 비치된 모습">
+      <figcaption>리뷰카드가 아니라, 다음 중요한 자리를 떠올리게 하는 카드.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 3. CORE CHANGES -->
+<section class="plan-sec reveal">
+  <div class="wrap">
+    <div class="eyebrow">CORE CHANGES</div>
+    <h2>이 로드맵이 하는 일, 다섯 가지</h2>
+    <div class="plan">
+      <div class="plan-row"><div class="plan-no">01</div><div class="plan-text"><strong>종이 예약지 → 모니터 예약보드</strong><span>지금 빨간 펜 도착 체크 방식 그대로, 화면으로.</span></div></div>
+      <div class="plan-row"><div class="plan-no">02</div><div class="plan-text"><strong>카운터 자리카드</strong><span>나눠주는 홍보물이 아니라, 고객이 가져가는 한 장.</span></div></div>
+      <div class="plan-row"><div class="plan-no">03</div><div class="plan-text"><strong>설치형 스크린 → 조용한 브랜드 화면</strong><span>광고가 아니라, 공간의 격을 만드는 무음 화면.</span></div></div>
+      <div class="plan-row"><div class="plan-no">04</div><div class="plan-text"><strong>테이블·룸 안내물 정리</strong><span>목적별 안내를 눈에 보이게.</span></div></div>
+      <div class="plan-row"><div class="plan-no">05</div><div class="plan-text"><strong>모든 요소를 온라인으로 연결</strong><span>네이버·구글·캐치테이블·리뷰로 회수.</span></div></div>
+    </div>
+    <div class="image-strip">
+      <figure><img class="ph-bg" src="../assets/images/seolmajung-reservation-board-monitor.jpg" alt="카운터 위 모니터 예약보드"><figcaption>예약관리</figcaption></figure>
+      <figure><img class="ph-bg" src="../assets/images/seolmajung-private-room-projector.jpg" alt="프라이빗 룸과 프로젝터 화면"><figcaption>공간 분위기</figcaption></figure>
+      <figure><img class="ph-bg" src="../assets/images/seolmajung-online-review-loop.jpg" alt="스마트폰으로 리뷰·검색 화면을 보는 모습"><figcaption>온라인 회수</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 4. BEFORE → AFTER -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">BEFORE → AFTER</div>
+    <h2>종이 예약지에서, 준비된 자리의 신호로</h2>
+    <p class="body" style="margin-bottom:18px;">기존의 예약 체크 방식은 현장에는 익숙하지만, 고객에게 보이는 운영 신호는 더 정돈될 수 있습니다. 예약보드는 종이를 없애는 일이 아니라, "내 자리가 정확히 준비되고 있다"는 안심을 보여주는 장치입니다.</p>
+    <p class="ground">지금 예약지에는 가족모임과 대기업 단체 접대가 함께 들어옵니다 — 두 흐름을 화면에서 한눈에 구분하는 것이 예약보드의 핵심입니다.</p>
+    <div class="before-after">
+      <div class="ba-visual">
+        <!-- 외부 공개 시 반드시 블러 처리된 파일만 사용 -->
+        <img class="ph-bg ba-main" src="../assets/images/seolmajung-reservation-before-after.jpg" alt="종이 예약지와 태블릿 예약보드를 나란히 비교한 Before/After">
+        <div class="ba-before-mini">
+          <img class="ph-bg" src="../assets/images/seolmajung-current-paper-reservation-blur.jpg" alt="현재 종이 예약지 (블러 처리)">
+          <span>현재 방식 · 블러 참고 이미지</span>
+        </div>
+      </div>
+      <div class="ba-list">
+        <div class="ba-card is-before">
+          <div class="ba-tag">BEFORE</div>
+          <h3>종이 예약지</h3>
+          <ul><li>색펜으로 도착 체크</li><li>직원 개인 숙련도에 의존</li><li>현장에만 보이는 운영</li></ul>
+        </div>
+        <div class="ba-card is-after">
+          <div class="ba-tag">AFTER</div>
+          <h3>모니터 예약보드</h3>
+          <ul><li>한 번의 터치로 상태값 체크</li><li>모든 직원이 같은 화면 공유</li><li>고객에게도 보이는 준비 신호</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CUSTOMER JOURNEY -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">CUSTOMER JOURNEY</div>
+    <h2>고객이 매 순간 확인하는 안심</h2>
+    <div class="journey-grid">
+      <div class="jflow">
+        <div class="jflow-item"><div class="jflow-stage">입장</div><div class="jflow-desc">내 자리가 준비되어 있다는 확인</div></div>
+        <div class="jflow-item"><div class="jflow-stage">착석</div><div class="jflow-desc">이 모임에 맞는 세팅</div></div>
+        <div class="jflow-item"><div class="jflow-stage">식사</div><div class="jflow-desc">대접받는 느낌</div></div>
+        <div class="jflow-item"><div class="jflow-stage">계산</div><div class="jflow-desc">다음 자리를 떠올림</div></div>
+        <div class="jflow-item"><div class="jflow-stage">퇴장 후</div><div class="jflow-desc">만족이 리뷰로 남음</div></div>
+      </div>
+      <figure class="journey-img">
+        <img class="ph-bg" src="../assets/images/seolmajung-reservation-board-monitor.jpg" alt="입장 직후 고객이 보게 되는 정확히 준비된 예약보드">
+        <figcaption>입장 직후, 정확히 준비된 예약보드.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 6. OFFLINE TOUCHPOINTS -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">OFFLINE TOUCHPOINTS</div>
+    <h2>매장 안, 안심을 만드는 자리들</h2>
+    <p class="keyline">각 요소는 하나의 역할만 맡습니다. 권유가 아니라 안내, 장식이 아니라 안심의 근거입니다.</p>
+    <div class="touch-grid">
+      <div class="touch-card">
+        <img class="ph-bg card-img" src="../assets/images/seolmajung-reservation-board-monitor.jpg" alt="예약관리 모니터">
+        <h3>예약관리 모니터</h3>
+        <p>빨간 펜 도착 체크의 직관 그대로, 한 번의 터치로. 가족모임·비즈니스를 색으로 구분합니다.</p>
+      </div>
+      <div class="touch-card">
+        <img class="ph-bg card-img" src="../assets/images/seolmajung-place-card-counter.jpg" alt="설마중 자리카드">
+        <h3>설마중 자리카드</h3>
+        <p>나눠주는 홍보물이 아니라, 고객이 스스로 가져가는 한 장. 다음 중요한 자리의 연결점입니다.</p>
+      </div>
+      <div class="touch-card">
+        <img class="ph-bg card-img" src="../assets/images/seolmajung-private-room-projector.jpg" alt="프라이빗 룸 프로젝터 화면">
+        <h3>프로젝터 화면</h3>
+        <p>음향 없이, 천천히, 광고 문구 없이 — 공간의 격만 보여주는 화면입니다.</p>
+      </div>
+      <div class="touch-card">
+        <img class="ph-bg card-img" src="../assets/images/seolmajung-online-review-loop.jpg" alt="영수증·외국인 안내 카드가 온라인으로 이어지는 모습">
+        <h3>영수증 · 외국인 안내 카드</h3>
+        <p>영문 메뉴와 QR로, 계산 후 한 장이 재예약과 리뷰로 이어집니다.</p>
+      </div>
+      <div class="touch-card text-only">
+        <h3>테이블 미니배너</h3>
+        <p>그릴링 서비스와 계절 코스를 한 줄로. 묻지 않아도 알게 되는 안내입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ONLINE CIRCULATION -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">ONLINE CIRCULATION</div>
+    <h2>매장 경험이 온라인 신뢰로 돌아오는 길</h2>
+    <figure class="circ-img">
+      <img class="ph-bg" src="../assets/images/seolmajung-online-review-loop.jpg" alt="스마트폰으로 리뷰와 검색 화면을 확인하는 모습">
+      <figcaption>매장에서 느낀 안심은 퇴장 후 리뷰가 되고, 리뷰는 다시 처음 보는 고객의 안심이 됩니다.</figcaption>
+    </figure>
+    <div class="circulation-flow">
+      <div>매장 경험</div><span>→</span>
+      <div>리뷰 기록</div><span>→</span>
+      <div>온라인 신뢰</div><span>→</span>
+      <div>재예약 · 소개</div>
+    </div>
+    <div class="circ-channels">
+      <div class="ch"><strong>네이버 플레이스</strong><small>검색·리뷰의 첫 화면</small></div>
+      <div class="ch"><strong>캐치테이블</strong><small>예약과 후기</small></div>
+      <div class="ch"><strong>구글 프로필</strong><small>지도·외국인 대응</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ROADMAP -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">ROADMAP</div>
+    <h2>4주 안에 자리 잡는 순서</h2>
+    <p class="keyline">한 번에 바꾸지 않습니다. 매주 한 단계씩 운영에 녹아듭니다. 설치는 영업시간 외 진행합니다.</p>
+    <div class="road-cards">
+      <div class="road-card"><div class="rc-when">1주차</div><h3>현장 구조 파악·품목 확정</h3><p>동선 확인, 스크린·모니터 위치 결정, 구매 발주.</p></div>
+      <div class="road-card"><div class="rc-when">2주차</div><h3>자리카드·미니배너·예약보드 디자인</h3><p>제작물 디자인 확정, 예약보드 색상 체계 설계.</p></div>
+      <div class="road-card"><div class="rc-when">3주차</div><h3>장비 설치·테스트</h3><p>프로젝터·모니터 설치, 슬라이드·예약보드 시범 운영.</p></div>
+      <div class="road-card"><div class="rc-when">4주차</div><h3>직원 멘트·리뷰/예약 점검</h3><p>구간별 멘트 적용, 자리카드 비치, QR 연결 확인.</p></div>
+    </div>
+    <div class="road-after"><strong>이후</strong> — 월별 콘텐츠 교체와 리뷰 데이터 확인</div>
+  </div>
+</section>
+
+<!-- 9. 필요한 품목 -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">필요한 품목</div>
+    <h2>구매 · 제작 · 운영, 세 갈래로</h2>
+    <div class="cards">
+      <div class="card"><h3>구매 품목</h3><div class="card-note">장비 — 1회 구매</div><ul>
+        <li>무선 빔프로젝터<small>설치형 스크린 연동</small></li>
+        <li>예약보드용 모니터·태블릿<small>카운터 직원 시야 기준</small></li>
+        <li>콘텐츠 재생용 노트북·태블릿<small>슬라이드 상영 전용</small></li>
+        <li>아크릴 카드 트레이·스탠드<small>자리카드 거치용</small></li>
+        <li>테이블 미니배너 거치대<small>룸·홀 수량 기준</small></li>
+      </ul></div>
+      <div class="card"><h3>제작 품목</h3><div class="card-note">디자인 — 2주차 제작</div><ul>
+        <li>설마중 자리카드<small>QR 연결·카운터 비치</small></li>
+        <li>카드 배치 미니사인<small>"한 장 가져가셔도 좋습니다"</small></li>
+        <li>테이블 미니배너<small>계절 메뉴·그릴링</small></li>
+        <li>룸 안내·외국인 안내 카드<small>인원 기준·영문 메뉴</small></li>
+        <li>영수증 동봉 카드<small>재예약·리뷰 연결</small></li>
+        <li>프로젝터 슬라이드 템플릿<small>월별 교체 기준</small></li>
+        <li>예약보드 화면 디자인<small>도착 체크·색상 체계</small></li>
+      </ul></div>
+      <div class="card"><h3>운영 품목</h3><div class="card-note">운영 도구 — 지속</div><ul>
+        <li>월별 콘텐츠 교체 캘린더<small>슬라이드·계절 카드</small></li>
+        <li>직원 안내 멘트 시트<small>구간별 한 줄 멘트</small></li>
+        <li>리뷰 키워드 기록표<small>룸·그릴링·접객</small></li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. 필요 사진 -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">필요 사진</div>
+    <h2>촬영해 주시면 좋을 컷 — 1일 분량</h2>
+    <p class="keyline">제작물과 온라인 화면이 함께 쓰는 사진입니다. 한 번의 촬영으로 카드·프로젝터·플레이스를 모두 채울 수 있습니다.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>카테고리</th><th>필요한 컷</th><th>쓰이는 곳</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-area">룸</td><td>인원별 룸(4·6·10인+), 문 닫힌 컷, 세팅 컷</td><td class="cell-now">자리카드·룸 안내·온라인</td></tr>
+          <tr><td class="cell-area">그릴링</td><td>손+숯불+갈비 클로즈업 1컷</td><td class="cell-now">프로젝터·플레이스 대표</td></tr>
+          <tr><td class="cell-area">코스 한상</td><td>전체 코스 1컷 + 시그니처 1컷</td><td class="cell-now">홈페이지·캐치테이블</td></tr>
+          <tr><td class="cell-area">주차·발렛</td><td>입구 동선, 발렛 인계 장면</td><td class="cell-now">외국인 카드·플레이스</td></tr>
+          <tr><td class="cell-area">목적별 세팅</td><td>상견례 / 비즈니스 세팅 각 1컷</td><td class="cell-now">룸 안내·프로젝터</td></tr>
+          <tr><td class="cell-area">외국인 안내</td><td>영문 메뉴 컷, 인사 장면 1컷</td><td class="cell-now">외국인 카드·구글</td></tr>
+          <tr><td class="cell-area">카운터</td><td>자리카드 메인 비주얼용 룸 1컷</td><td class="cell-now">자리카드 전면</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 11. NEXT ACTION -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">NEXT ACTION</div>
+    <h2>바로 시작할 수 있는 다섯 가지</h2>
+    <div class="next">
+      <h3>이번 주 안에 결정하면 4주 로드맵이 출발합니다</h3>
+      <ol>
+        <li><strong>현장 점검 일정 확정</strong> — 카운터·룸·스크린 위치 1시간 방문</li>
+        <li><strong>예약보드 항목 확정</strong> — 지금 색펜 체크 기준을 화면 상태값으로</li>
+        <li><strong>자리카드 문구와 QR 연결 확정</strong> — 메인 룸 컷, 네이버 플레이스 우선</li>
+        <li><strong>장비 발주</strong> — 프로젝터·모니터·거치대를 3주차 설치에 맞춰</li>
+        <li><strong>촬영 및 설치 일정 확정</strong> — 필요 사진 1일 촬영 + 설치 날짜</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-brand">중요한 자리가 선명해지는 매장 — 설마중 오프라인 경험 개선 로드맵</div>
+    <div>(주)위플레이스마케팅 · 최규현 외 위플레이스마케팅 운영팀</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items=document.querySelectorAll('.reveal');
+    if(reduced||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('on');});return;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:0.08});
+    items.forEach(function(el){io.observe(el);});
+  })();
+</script>
+
+</body>
+</html>
